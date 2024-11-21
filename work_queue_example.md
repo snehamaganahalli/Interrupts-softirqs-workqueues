@@ -25,7 +25,7 @@ global_rtm_event_list               NEW_NEIGH|DEL_NEIGH|NEW_NEIGH|NEW_NEIGH|DEL_
 
 ```
 vxlan_tunnel_fdb_event(){​
-
+	// RTM_NEWNEIGH and RTM_DELNEIGH event comes from kernel and it is a softirq context and henece sleep() functions 	// (like netdev_alloc()​, netdev_master_upper_dev_get(), rtnl_lock/unlock(), debug-fs create and delete etc...) 		// cannot be called in it.
 	RTM_NEWNEIGH:​
 	RTM_DELNEIGH:​
 		spin_lock_bh()​
