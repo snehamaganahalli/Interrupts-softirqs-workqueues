@@ -4,6 +4,15 @@ Bottom halves run immediately after the interrupt returns. The top half is quick
 
 **Softirq/tasklets:**
 softirq's do run in an interrupt context - the "softirq" context; it's just that it's not "hard-irq" context (which is the context when a hardware interrupt occurs).
+Eg: You have a singly Linked List. And you are modifying the singly linked list. (a=>d)
+processor 1: a=>b=>d
+processor 2: a=>c=>d
+
+Seialization using tasklet:
+processor 1: a=>b=>d
+processor 2: a=>b>c=>d
+
+if softirq then use the locks so that you will get a=>b=>c=>d
 
 **tasklet:**
 Tasklets provide serialization. Same tasklet will not run concurrently on two different processor.
